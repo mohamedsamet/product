@@ -24,4 +24,9 @@ public class UserRepository implements IUserRepository {
                 userDefault -> log.info("Default User {} already exist", userDefault.getLogin()),
                 () -> userJpaRepository.save(user));
     }
+
+    @Override
+    public Optional<User> findByLogin(String login) {
+        return userJpaRepository.findByLogin(login);
+    }
 }
