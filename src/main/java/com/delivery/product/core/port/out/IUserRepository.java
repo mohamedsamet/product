@@ -9,4 +9,7 @@ public interface IUserRepository {
     void saveDefaultUser(User user);
 
     Optional<User> findByLogin(String login);
+
+    User addUser(User user);
+
 }

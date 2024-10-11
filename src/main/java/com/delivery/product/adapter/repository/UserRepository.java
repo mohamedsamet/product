@@ -29,4 +29,9 @@ public class UserRepository implements IUserRepository {
     public Optional<User> findByLogin(String login) {
         return userJpaRepository.findByLogin(login);
     }
+
+    @Override
+    public User addUser(User user) {
+        return userJpaRepository.save(user);
+    }
 }
