@@ -1,7 +1,6 @@
 package com.delivery.product.core.domain.entity.product;
 
 import com.delivery.product.core.domain.data.product.ProductCategory;
-import com.delivery.product.core.domain.data.product.ProductFamily;
 import jakarta.persistence.*;
 import lombok.*;
 

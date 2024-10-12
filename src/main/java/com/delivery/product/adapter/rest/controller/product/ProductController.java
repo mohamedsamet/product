@@ -5,7 +5,6 @@ import com.delivery.product.core.domain.data.product.ProductRequest;
 import com.delivery.product.core.domain.data.product.ProductResponse;
 import com.delivery.product.core.port.in.product.IProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
