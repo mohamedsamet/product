@@ -1,5 +1,6 @@
-package com.delivery.product.adapter.rest.auth;
+package com.delivery.product.adapter.rest.controller.auth;
 
+import com.delivery.product.adapter.rest.port.auth.IAuthController;
 import com.delivery.product.application.security.jwt.JwtIssuer;
 import com.delivery.product.application.security.user.UserPrinciple;
 import com.delivery.product.core.domain.data.LoginRequest;

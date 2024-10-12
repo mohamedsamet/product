@@ -1,4 +1,4 @@
-package com.delivery.product.adapter.rest.auth;
+package com.delivery.product.adapter.rest.port.auth;
 
 import com.delivery.product.core.domain.data.LoginRequest;
 import com.delivery.product.core.domain.data.LoginResponse;

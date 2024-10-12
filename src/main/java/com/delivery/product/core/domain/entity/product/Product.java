@@ -28,9 +28,6 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
-    @Enumerated(EnumType.STRING)
-    private ProductFamily family;
-
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductInventory> inventories;
 }
