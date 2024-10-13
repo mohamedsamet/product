@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 @Transactional(propagation = Propagation.REQUIRED)
 public class DeliveryService implements IDeliveryService {
 
-    private final IDeliveryProcessingService deliveryProcessingService;
     private final DeliveryQueueManager deliveryQueueManager;
 
     @Override
@@ -31,18 +30,4 @@ public class DeliveryService implements IDeliveryService {
         }
     }
 
-    @Scheduled(fixedRate = 50)
-    public void processQueue() {
-        while (!deliveryQueueManager.getDeliveryWriteQueue().isEmpty()) {
-            try {
-                DeliveryRequest request = deliveryQueueManager.getDeliveryWriteQueue().poll();
-                if (request != null) {
-                    deliveryProcessingService.processRequestDelivery(request);
-                }
-            } catch (Exception e) {
-                Thread.currentThread().interrupt();
-                log.error("Interruption Exception When trying to Process Delivery Request ", e);
-            }
-        }
-    }
 }
