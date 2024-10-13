@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class DeliveryService implements IDeliveryService {
     @Override
     public void process(DeliveryRequest deliveryRequest) {
         try {
-            deliveryScheduler.getDeliveryQueue().put(deliveryRequest);
+            deliveryScheduler.getDeliveryQueue().offer(deliveryRequest, 30000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             log.error("Interruption Exception When trying to add Delivery Request To The queue", exception);
