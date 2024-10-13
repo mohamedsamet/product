@@ -13,6 +13,8 @@ public class ManualOperationOrderSerivce implements SubCommandProcessor {
     @Override
     public void process(Delivery delivery) {
         log.info("manual operation");
+
+        // TODO Logic to create order to deliver and update product inventory for the case MANUAL
     }
 
     @Override

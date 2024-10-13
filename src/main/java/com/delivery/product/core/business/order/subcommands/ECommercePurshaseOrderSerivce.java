@@ -13,6 +13,8 @@ public class ECommercePurshaseOrderSerivce implements SubCommandProcessor {
     @Override
     public void process(Delivery delivery) {
         log.info("E commerce");
+
+        // TODO Logic to create order to deliver and update product inventory for the case E_COMMERCE
     }
 
     @Override

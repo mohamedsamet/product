@@ -13,6 +13,8 @@ public class InternWarehouseOrderSerivce implements SubCommandProcessor {
     @Override
     public void process(Delivery delivery) {
         log.info("interne Warehouse");
+
+        // TODO Logic to create order to deliver and update product inventory for the case INT_WAREHOUSE
     }
 
     @Override
