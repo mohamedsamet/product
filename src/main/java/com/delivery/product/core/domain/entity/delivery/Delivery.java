@@ -6,6 +6,7 @@ import com.delivery.product.core.domain.data.delivery.DeliveryMethod;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +34,7 @@ public class Delivery {
     private Float quantity;
 
     private Long parentId;
+    private LocalDateTime creationDate;
 
     @Enumerated(EnumType.STRING)
     private CommandStatus status;
