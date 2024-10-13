@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -21,17 +23,29 @@ import java.util.List;
 public class DeliveryProcessingService implements IDeliveryProcessingService {
 
     private final IDeliveryRepository deliveryRepository;
+    private final DeliveryQueueManager deliveryQueueManager;
 
     @Override
     public void processDelivery(DeliveryRequest deliveryRequest) {
-        Delivery delivery = deliveryRepository.saveAll(Collections.singletonList(
-                DeliveryMapper.toDeliveryParent(deliveryRequest)
-        )).getFirst();
+        try {
+            Delivery delivery = deliveryRepository.saveAll(Collections.singletonList(
+                    DeliveryMapper.toDeliveryParent(deliveryRequest)
+            )).getFirst();
 
-        List<Delivery> deliverieSlices = deliveryRequest.getProductDeliveryRequests().stream()
-                .map(productRequest -> DeliveryMapper.toDeliverySlice(productRequest, delivery))
-                .toList();
+            List<Delivery> deliverieSlices = deliveryRequest.getProductDeliveryRequests().stream()
+                    .map(productRequest -> DeliveryMapper.toDeliverySlice(productRequest, delivery))
+                    .toList();
 
-        deliveryRepository.saveAll(deliverieSlices);
+            deliveryRepository.saveAll(deliverieSlices);
+            deliveryQueueManager.getDeliveryReadQueue().offer(delivery.getPublicId(), 30000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException exception) {
+            log.error("Unable to offer the read queue");
+        }
+
+    }
+
+    @Override
+    public void processDeliveryToOrders(UUID deliveryPublicId) {
+        log.info("process" + deliveryPublicId.toString());
     }
 }

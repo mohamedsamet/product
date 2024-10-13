@@ -1,40 +1,34 @@
 package com.delivery.product.core.business.delivery;
 
-import com.delivery.product.core.domain.data.delivery.DeliveryRequest;
 import com.delivery.product.core.port.in.delivery.IDeliveryProcessingService;
-import com.delivery.product.core.port.in.delivery.IDeliveryService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableScheduling
 @RequiredArgsConstructor
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
-public class DeliveryScheduler {
+public class DeliveryReadScheduler {
 
     private final IDeliveryProcessingService deliveryProcessingService;
-    @Getter
-    private final BlockingQueue<DeliveryRequest> deliveryQueue = new LinkedBlockingQueue<>();
-
+    private final DeliveryQueueManager deliveryQueueManager;
 
     @Scheduled(fixedRate = 50)
     public void processQueue() {
-        while (!deliveryQueue.isEmpty()) {
+        while (!deliveryQueueManager.getDeliveryReadQueue().isEmpty()) {
             try {
-                DeliveryRequest request = deliveryQueue.poll();
+                UUID request = deliveryQueueManager.getDeliveryReadQueue().poll(20000, TimeUnit.MILLISECONDS);
                 if (request != null) {
-                    deliveryProcessingService.processDelivery(request);
+                    deliveryProcessingService.processDeliveryToOrders(request);
                 }
             } catch (Exception e) {
                 Thread.currentThread().interrupt();
