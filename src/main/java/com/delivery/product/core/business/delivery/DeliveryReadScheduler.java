@@ -21,23 +21,9 @@ import java.util.concurrent.TimeUnit;
 public class DeliveryReadScheduler {
 
     private final IDeliveryProcessingService deliveryProcessingService;
-    private final DeliveryQueueManager deliveryQueueManager;
-
-    @Value("${app.delivery.polling.timeout}")
-    private int pollingTimeout;
 
     @Scheduled(fixedRateString = "${app.delivery.read.rate}")
     public void processQueue() {
-        while (!deliveryQueueManager.getDeliveryReadQueue().isEmpty()) {
-            try {
-                UUID request = deliveryQueueManager.getDeliveryReadQueue().poll(pollingTimeout, TimeUnit.MILLISECONDS);
-                if (request != null) {
-                    deliveryProcessingService.processDeliveryToOrders(request);
-                }
-            } catch (Exception e) {
-                Thread.currentThread().interrupt();
-                log.error("Interruption Exception When trying to Process Delivery Request ", e);
-            }
-        }
+        deliveryProcessingService.processDeliveryToOrders();
     }
 }

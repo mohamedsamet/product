@@ -18,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 @Transactional(propagation = Propagation.REQUIRED)
 public class DeliveryService implements IDeliveryService {
 
-    private final DeliveryQueueManager deliveryQueueManager;
+    private final DeliveryWriteScheduler deliveryWriteScheduler;
 
     @Override
     public void process(DeliveryRequest deliveryRequest) {
         try {
-            deliveryQueueManager.getDeliveryWriteQueue().offer(deliveryRequest, 30000, TimeUnit.MILLISECONDS);
+            deliveryWriteScheduler.getDeliveryWriteQueue().offer(deliveryRequest, 30000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             log.error("Interruption Exception When trying to add Delivery Request To The queue", exception);

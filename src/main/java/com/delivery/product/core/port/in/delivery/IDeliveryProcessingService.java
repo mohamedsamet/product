@@ -7,5 +7,5 @@ import java.util.UUID;
 public interface IDeliveryProcessingService {
 
     void processRequestDelivery(DeliveryRequest deliveryRequest);
-    void processDeliveryToOrders(UUID deliveryPublicId);
+    void processDeliveryToOrders();
 }
