@@ -1,9 +1,8 @@
 package com.delivery.product.adapter.rest.controller.warehouse;
 
-import com.delivery.product.adapter.rest.port.warehouse.product.IWarehouseController;
+import com.delivery.product.adapter.rest.port.warehouse.IWarehouseController;
 import com.delivery.product.core.domain.data.warehouse.WarehouseRequest;
 import com.delivery.product.core.domain.data.warehouse.WarehouseResponse;
-import com.delivery.product.core.port.in.product.IProductService;
 import com.delivery.product.core.port.in.warehouse.IWarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.delivery.product.adapter.rest.port.warehouse.product;
+package com.delivery.product.adapter.rest.port.warehouse;
 
 import com.delivery.product.core.domain.data.warehouse.WarehouseRequest;
 import com.delivery.product.core.domain.data.warehouse.WarehouseResponse;
