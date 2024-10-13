@@ -10,8 +10,8 @@ import com.delivery.product.core.port.in.product.IProductService;
 import com.delivery.product.core.port.out.product.IProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -29,6 +29,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponse saveProduct(ProductRequest productRequest) {
         productRepository.findByName(productRequest.getName()).ifPresent(product -> {
             throw new ConflictException("Product name already exist");

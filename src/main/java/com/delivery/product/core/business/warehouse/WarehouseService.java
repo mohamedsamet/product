@@ -11,6 +11,7 @@ import com.delivery.product.core.port.in.warehouse.IWarehouseService;
 import com.delivery.product.core.port.out.IWarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class WarehouseService implements IWarehouseService {
     private final IWarehouseRepository warehouseRepository;
 
     @Override
+    @Transactional
     public WarehouseResponse saveWarehouse(WarehouseRequest warehouseRequest) {
         Warehouse warehouseSaved = warehouseRepository.save(WarehouseMapper.toWarehouse(warehouseRequest));
         return WarehouseMapper.toWarehouseResponse(warehouseSaved);
