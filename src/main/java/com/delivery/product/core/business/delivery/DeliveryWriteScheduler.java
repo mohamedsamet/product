@@ -27,7 +27,7 @@ public class DeliveryWriteScheduler {
             try {
                 DeliveryRequest request = deliveryQueueManager.getDeliveryWriteQueue().poll();
                 if (request != null) {
-                    deliveryProcessingService.processDelivery(request);
+                    deliveryProcessingService.processRequestDelivery(request);
                 }
             } catch (Exception e) {
                 Thread.currentThread().interrupt();

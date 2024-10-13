@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public interface IDeliveryProcessingService {
 
-    void processDelivery(DeliveryRequest deliveryRequest);
+    void processRequestDelivery(DeliveryRequest deliveryRequest);
     void processDeliveryToOrders(UUID deliveryPublicId);
 }

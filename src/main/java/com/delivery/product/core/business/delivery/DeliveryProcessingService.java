@@ -26,7 +26,7 @@ public class DeliveryProcessingService implements IDeliveryProcessingService {
     private final DeliveryQueueManager deliveryQueueManager;
 
     @Override
-    public void processDelivery(DeliveryRequest deliveryRequest) {
+    public void processRequestDelivery(DeliveryRequest deliveryRequest) {
         try {
             Delivery delivery = deliveryRepository.saveAll(Collections.singletonList(
                     DeliveryMapper.toDeliveryParent(deliveryRequest)

@@ -37,7 +37,7 @@ public class DeliveryService implements IDeliveryService {
             try {
                 DeliveryRequest request = deliveryQueueManager.getDeliveryWriteQueue().poll();
                 if (request != null) {
-                    deliveryProcessingService.processDelivery(request);
+                    deliveryProcessingService.processRequestDelivery(request);
                 }
             } catch (Exception e) {
                 Thread.currentThread().interrupt();
