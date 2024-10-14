@@ -5,6 +5,7 @@ import com.delivery.product.core.domain.data.delivery.DeliveryCommandType;
 import com.delivery.product.core.domain.entity.delivery.Delivery;
 import com.delivery.product.core.port.in.delivery.IDeliveryOrder;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class DeliveryOrder implements IDeliveryOrder {
 
     private final Map<DeliveryCommandType, SubCommandProcessor> subCommandProcessorMap = new HashMap<>();
@@ -27,6 +29,7 @@ public class DeliveryOrder implements IDeliveryOrder {
 
     @Override
     public void order(List<Delivery> deliveries) {
+        log.info("### Start Processing deliveries ###");
         deliveries.forEach(delivery -> {
             SubCommandProcessor processor = subCommandProcessorMap.get(delivery.getCommandType());
             delivery.setStatus(CommandStatus.IN_PROGRESS);
